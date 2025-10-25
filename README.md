@@ -212,39 +212,136 @@ npm run genkit:watch
 - PNG 格式下载
 - 完整的文言和白话双版本
 
-## 🌐 部署
+## 🌐 部署指南
 
 ### Vercel 部署（推荐）
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/leon751219-cmd/fsmlgemini)
 
-1. 点击上方按钮
-2. 配置环境变量 `GOOGLE_API_KEY`
-3. 自动部署完成
+#### 快速部署步骤
 
-### 环境变量配置
+1. **连接GitHub仓库**
+   - 登录 [Vercel Dashboard](https://vercel.com/dashboard)
+   - 点击 "Add New..." → "Project"
+   - 导入GitHub仓库: `fsmlgemini`
+   - 确认项目设置
 
-在 Vercel Dashboard 中设置：
+2. **配置环境变量**
+   - 进入项目 "Settings" → "Environment Variables"
+   - 添加变量:
+     - **Name**: `GOOGLE_API_KEY`
+     - **Value**: 你的Gemini API密钥
+     - **Environments**: Production, Preview, Development
 
+3. **开始部署**
+   - 点击 "Deploy" 按钮
+   - 等待构建完成 (约2-3分钟)
+   - 获得部署URL
+
+#### 环境变量设置
+
+在Vercel项目设置中添加以下环境变量：
+
+**Google Gemini API密钥**:
+- **变量名**: `GOOGLE_API_KEY`
+- **变量值**: `你的实际API密钥`
+- **环境**: Production, Preview, Development
+
+**设置步骤**:
+1. 登录 [Vercel Dashboard](https://vercel.com/dashboard)
+2. 进入你的项目
+3. 点击 "Settings" 选项卡
+4. 选择 "Environment Variables"
+5. 添加新变量并保存
+6. 重新部署项目
+
+#### 部署配置确认
+
+确认以下配置正确：
+
+```json
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "functions": {
+    "src/app/**/*.ts": {
+      "maxDuration": 30
+    }
+  }
+}
 ```
-GOOGLE_API_KEY = 你的API密钥
-```
 
-### Firebase App Hosting
+### 部署后验证
 
-```bash
-# 安装 Firebase CLI
-npm install -g firebase-tools
+#### 功能测试清单
 
-# 登录
-firebase login
+**基础功能测试**:
+- [ ] 页面正常加载 (< 3秒)
+- [ ] 表单提交正常
+- [ ] AI报告生成成功
+- [ ] UI显示正确（灯笼符号、背景样式）
 
-# 初始化
-firebase init apphosting
+**缓存系统测试**:
+- [ ] 首次生成时间 < 30秒
+- [ ] 缓存命中时间 < 100ms
+- [ ] 重复请求返回缓存结果
 
-# 部署
-firebase deploy --only apphosting
-```
+**AI内容质量**:
+- [ ] 文言开示格式正确
+- [ ] 白话解心通俗易懂
+- [ ] 总字数在6000-8000字范围
+- [ ] 包含五部典籍理论
+
+#### 性能监控
+
+在Vercel Dashboard中监控：
+- **Functions**: 查看AI生成函数的执行时间
+- **Bandwidth**: 监控API调用成本
+- **Error Logs**: 检查是否有错误或超时
+
+### 常见问题解决
+
+#### 问题1: API密钥错误
+**症状**: 生成报告时返回401错误
+**解决**:
+1. 检查环境变量是否正确设置
+2. 确认API密钥有效且有配额
+3. 在Vercel中重新部署项目
+
+#### 问题2: 生成超时
+**症状**: 报告生成超过30秒
+**解决**:
+1. 检查网络连接
+2. 确认Gemini API状态正常
+3. 考虑增加`maxDuration`配置
+
+#### 问题3: UI显示异常
+**症状**: 灯笼符号不显示或背景样式错误
+**解决**:
+1. 检查CSS文件是否正确加载
+2. 确认Tailwind CSS构建正常
+3. 清除浏览器缓存重新测试
+
+#### 问题4: 缓存不工作
+**症状**: 每次请求都调用AI
+**解决**:
+1. 检查环境检测是否正常
+2. 确认内存缓存初始化成功
+3. 查看控制台日志分析缓存状态
+
+### 成本监控
+
+#### Vercel成本
+- **Hobby计划**: 免费额度
+- **Function执行**: 按使用量计费
+- **带宽**: 包含100GB/月
+
+#### Gemini API成本
+- **Token使用**: 每次报告约6000-8000 tokens
+- **缓存效果**: 可减少70%重复调用
+- **预估成本**: 约$0.01-0.03/次生成
 
 ## 🔧 已解决的关键问题
 
@@ -328,15 +425,25 @@ export async function generateFortuneReading(input) {
 const { generateReportImage } = await import('@/lib/generate-report-image');
 ```
 
-## 🔐 安全注意事项
+## 🔐 安全配置
 
-⚠️ **重要提醒**:
+### API密钥安全
+- ✅ 使用Vercel环境变量存储
+- ✅ 不在代码中硬编码密钥
+- ✅ 限制API密钥权限
 
-1. **绝不提交 `.env` 文件** - 已在 `.gitignore` 中排除
-2. **使用环境变量** - 在部署平台配置 `GOOGLE_API_KEY`
-3. **API 密钥保护** - 不要在客户端代码中硬编码
-4. **动态导入客户端库** - 确保服务器/客户端环境正确分离
-5. **限制访问频率** - 考虑添加 Rate Limiting
+### 内容安全
+- ✅ 输入验证和清理
+- ✅ 错误处理不暴露敏感信息
+- ✅ 用户数据不记录到日志
+
+### 重要安全提醒
+
+⚠️ **绝不在代码中硬编码API密钥**
+⚠️ **绝不在文档中暴露真实API密钥**
+- 定期轮换API密钥
+- 监控API使用情况
+- 设置合理的配额限制
 
 ## 📝 常见问题
 

@@ -42,6 +42,7 @@ docs/
 !CHANGELOG.md
 !CLAUDE.md
 !DEPLOYMENT.md
+!ENV-SETUP.md
 !src/prompts/fortune-template-v2.md
 
 # Logs

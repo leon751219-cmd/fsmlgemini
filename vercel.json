@@ -3,9 +3,6 @@
   "outputDirectory": ".next",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "env": {
-    "GOOGLE_API_KEY": "@google-api-key"
-  },
   "functions": {
     "src/app/**/*.ts": {
       "maxDuration": 30

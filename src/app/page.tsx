@@ -9,7 +9,7 @@ import { FortuneResult } from "@/components/fortune-result"
 import { LoadingAnimation } from "@/components/loading-animation"
 import { MysticalBackground } from "@/components/mystical-background"
 import { YinYangIcon } from "@/components/yin-yang-icon"
-import { generateFortuneReading, type GenerateFortuneReadingOutput } from "@/ai/flows/generate-fortune-reading"
+import { generateFortuneReadingWithCache, type GenerateFortuneReadingOutput } from "@/ai/flows/generate-fortune-reading-cached"
 import { useToast } from "@/hooks/use-toast"
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
     setIsLoading(true)
     setFortune(null)
     try {
-      const result = await generateFortuneReading(data)
+      const result = await generateFortuneReadingWithCache(data)
       setFortune(result)
     } catch (error) {
       console.error("Error getting fortune:", error)

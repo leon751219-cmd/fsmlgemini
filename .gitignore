@@ -40,6 +40,9 @@ docs/
 *.md
 !README.md
 !CHANGELOG.md
+!CLAUDE.md
+!DEPLOYMENT.md
+!src/prompts/fortune-template-v2.md
 
 # Logs
 *.log

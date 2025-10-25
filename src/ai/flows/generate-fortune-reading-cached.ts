@@ -75,7 +75,7 @@ export async function warmupCache(inputs: GenerateFortuneReadingInput[]): Promis
 /**
  * 清理特定输入的缓存
  */
-export function clearCacheForInput(input: GenerateFortuneReadingInput): void {
+export async function clearCacheForInput(input: GenerateFortuneReadingInput): Promise<void> {
   const cacheKey = cache.generateKey(input);
   cache.delete(cacheKey);
   console.log(`🗑️ 已清理指定输入的缓存: ${cacheKey.substring(0, 8)}...`);
@@ -84,7 +84,7 @@ export function clearCacheForInput(input: GenerateFortuneReadingInput): void {
 /**
  * 获取缓存统计信息
  */
-export function getCacheStats() {
+export async function getCacheStats() {
   const stats = cache.getStats();
   const isServerless = process.env.VERCEL === '1';
 

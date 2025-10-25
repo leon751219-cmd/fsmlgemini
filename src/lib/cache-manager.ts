@@ -46,5 +46,4 @@ export const cache = {
   stopCleanup: () => getCacheInstance().stopCleanup()
 };
 
-// 导出环境检测函数
-export { isServerless };
+// 环境检测函数已在上面导出

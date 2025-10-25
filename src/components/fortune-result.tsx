@@ -104,7 +104,7 @@ export function FortuneResult({ fortuneData, onReset }: FortuneResultProps) {
                         </div>
                         {section.comment && (
                           <div className="teacher-comment">
-                            🏮 师者评语：{section.comment}
+                            🏮 {section.comment}
                           </div>
                         )}
                       </div>

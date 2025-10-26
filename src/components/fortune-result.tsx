@@ -118,9 +118,23 @@ export function FortuneResult({ fortuneData, onReset }: FortuneResultProps) {
               <motion.div variants={itemVariants}>
                  <Card className="bg-black/20 p-4 md:p-6 border-cyan-700/30">
                     <div className="w-full space-y-4">
-                      {vernacularReading.sections.map((section, index) => (
+                      {vernacularReading.sections.map((section, index) => {
+                        // 为每个章节定义对应的符号
+                        const getSectionIcon = (title: string) => {
+                          if (title.includes('八字命盘')) return '■';
+                          if (title.includes('五行平衡')) return '🌿';
+                          if (title.includes('性格与天赋')) return '●';
+                          if (title.includes('事业发展')) return '🌳';
+                          if (title.includes('感情与婚姻')) return '♥';
+                          if (title.includes('健康与养生')) return '🍃';
+                          if (title.includes('未来') || title.includes('流年')) return '⭐';
+                          return '📜';
+                        };
+                        
+                        return (
                         <div key={index} className="bg-cyan-950/20 rounded-lg border border-cyan-400/20 px-4 py-3">
                           <h3 className="section-title text-base font-semibold font-headline text-cyan-100">
+                            <span className="mr-2">{getSectionIcon(section.title)}</span>
                             {section.title}
                           </h3>
                           <div className="vernacular-reading fortune-content">
@@ -131,7 +145,8 @@ export function FortuneResult({ fortuneData, onReset }: FortuneResultProps) {
                             ))}
                           </div>
                         </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </Card>
               </motion.div>

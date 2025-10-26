@@ -122,7 +122,7 @@ export function FortuneResult({ fortuneData, onReset }: FortuneResultProps) {
                         // 为每个章节定义对应的符号
                         const getSectionIcon = (title: string) => {
                           console.log('Processing section title:', title); // 调试信息
-                          if (title.includes('八字命盘')) return '■';
+                          if (title.includes('八字命盘')) return '📜';
                           if (title.includes('五行平衡')) return '🌿';
                           if (title.includes('性格与天赋')) return '●';
                           if (title.includes('事业发展')) return '🌳';

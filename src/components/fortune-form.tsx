@@ -76,7 +76,7 @@ export function FortuneForm({ onSubmit, isSubmitting }: FortuneFormProps) {
                   name="birthDate"
                   render={({ field }) => (
                     <FormItem>
-                      <Label htmlFor="birthDate" className="text-sm font-medium text-cyan-100/90">出生日期</Label>
+                      <Label htmlFor="birthDate" className="text-sm font-medium text-cyan-100/90">出生日期（公历）</Label>
                       <FormControl>
                         <Input
                           id="birthDate"

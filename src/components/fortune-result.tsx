@@ -121,13 +121,14 @@ export function FortuneResult({ fortuneData, onReset }: FortuneResultProps) {
                       {vernacularReading.sections.map((section, index) => {
                         // 为每个章节定义对应的符号
                         const getSectionIcon = (title: string) => {
+                          console.log('Processing section title:', title); // 调试信息
                           if (title.includes('八字命盘')) return '■';
                           if (title.includes('五行平衡')) return '🌿';
                           if (title.includes('性格与天赋')) return '●';
                           if (title.includes('事业发展')) return '🌳';
                           if (title.includes('感情与婚姻')) return '♥';
                           if (title.includes('健康与养生')) return '🍃';
-                          if (title.includes('未来') || title.includes('流年')) return '⭐';
+                          if (title.includes('当前年份') || title.includes('未来') || title.includes('流年')) return '⭐';
                           return '📜';
                         };
                         

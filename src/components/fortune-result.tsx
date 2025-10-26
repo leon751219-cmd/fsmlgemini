@@ -126,7 +126,7 @@ export function FortuneResult({ fortuneData, onReset }: FortuneResultProps) {
                           if (title.includes('五行平衡')) return '🌿';
                           if (title.includes('性格与天赋')) return '🧠';
                           if (title.includes('事业发展')) return '🌳';
-                          if (title.includes('感情与婚姻')) return '♥';
+                          if (title.includes('感情与婚姻')) return '❤️';
                           if (title.includes('健康与养生')) return '🍃';
                           if (title.includes('当前年份') || title.includes('未来') || title.includes('流年')) return '⭐';
                           return '📜';
